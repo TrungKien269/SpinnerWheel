@@ -120,7 +120,7 @@ function initiateWheel(containerId, data, angleRotation) {
         rotation += 90 - Math.round(ps / 2);
 
         // play the audio
-        var audio = new Audio('./audio/spin.mp3');
+        var audio = new Audio('audio/spin.mp3');
         audio.volume = 0.4;
         audio.play();
 

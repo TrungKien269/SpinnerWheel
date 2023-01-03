@@ -62,7 +62,7 @@ function initiateWheel(segmentData, duration, spins, fireworkElement, btnWheelEl
 }
 
 function playSound() {
-    var audio = new Audio('./audio/tick.mp3');  // Create audio object and load desired file.
+    var audio = new Audio('/audio/tick.mp3');  // Create audio object and load desired file.
 
     // Stop and rewind the sound (stops it if already playing).
     audio.pause();

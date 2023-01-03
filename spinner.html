@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vòng quay may mắn</title>
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> -->
+    <link rel="stylesheet" href="./css/firework.css">
+    <link rel="stylesheet" href="./css/spinner.css">
+    <script src="./lib/jquery.min.js"></script>
+    <script src="./lib/sweetalert.js"></script>
+    <script src="./lib/Winwheel.js"></script>
+    <script src="./lib/TweenMax.js"></script>
+    <script src="./js/spinner.js"></script>
+</head>
+
+<body>
+    <div class="header">
+        <span class="header-title">Vòng quay may mắn</span>
+    </div>
+
+    <div class="body-page">
+        <div class="container-page">
+            <div class="left-page">
+                <div id="mainpage">
+                    <div class="pyro" id="firework-bg">
+                        <div class="before"></div>
+                        <div class="after"></div>
+                    </div>
+                    <div class="wheelContainer">
+                        <div id="canvasContainer">
+                            <canvas id="canvas" width="600" height="600" data-responsiveMinWidth="180"
+                                data-responsiveScaleHeight="true">
+                                Canvas not supported, please user another browser.
+                            </canvas>
+                            <img id="prizePointer" src="./images/basic_pointer.png" alt="V" />
+                            <audio id="winsound">
+                                <source src="./audio/winbeat_v2.mp3" />
+                            </audio>
+                        </div>
+                        <div class="runSpin">
+                            <button id="btnSpin">QUAY</button>
+                        </div>
+
+                        <script>
+                            var segmentData = [
+                                { 'fillStyle': '#eae56f', 'text': '5.000đ' },
+                                { 'fillStyle': '#89f26e', 'text': '10.000đ' },
+                                { 'fillStyle': '#7de6ef', 'text': '20.000đ' },
+                                { 'fillStyle': '#e7706f', 'text': '50.000đ' },
+                                { 'fillStyle': '#FF8000', 'text': '100.000đ' },
+                                { 'fillStyle': 'pink', 'text': '200.000đ' },
+                                { 'fillStyle': '#FF0080', 'text': '500.000đ' },
+                                { 'fillStyle': '#82fbff', 'text': '100.000đ' },
+                                { 'fillStyle': '#c68cff', 'text': '50.000đ' },
+                                { 'fillStyle': '#6dff6b', 'text': '200.000đ' },
+                                { 'fillStyle': '#ff8945', 'text': '20.000đ' },
+                                { 'fillStyle': '#ff524c', 'text': '100.000đ' },
+                                { 'fillStyle': '#ff4e9e', 'text': '10.000đ' },
+                                { 'fillStyle': '#8228ff', 'text': '20.000đ' },
+                            ];
+                            var duration = 5;
+                            var spins = 8;
+                            var theWheel = initiateWheel(segmentData, duration, spins, "firework-bg", "btnSpin");
+                        </script>
+                    </div>
+                </div>
+            </div>
+
+            <div class="right-page">
+                <div class="setting-page">
+                    <div class="setting-header">
+                        <h3 class="setting-header-title">THIẾT LẬP</h3>
+                        <div class="setting-button">
+                            <button class="btn-import">
+                                <img src="./images/icon-list.png" alt="settings-list-icon" class="img-list-icon">
+                            </button>
+                            <button class="btn-setting">
+                                <img src="./images/icon-settings.png" alt="wheel-settings-icon" class="img-settings-icon">
+                            </button>
+                        </div>
+                    </div>
+                    <div class="setting-body">
+                        <div class="add-new-value-line">
+                            <div class="input-new">
+                                <input type="text" name="input-value" class="input-new-value">
+                            </div>
+                            <div class="button-new">
+                                <button class="btn-new">
+                                    <img src="./images/icons-plus.png" alt="plus-icon" class="img-plus-icon">
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

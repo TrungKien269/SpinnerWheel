@@ -1,0 +1,244 @@
+body {
+    /* background-color: #A6BB8D; */
+    padding: 0;
+    margin: 0;
+}
+
+.header {
+    background-color: #EB455F;
+    padding: 1rem 2vw;
+}
+
+.header-title {
+    font-size: 26px;
+    color: white;
+    font-weight: bold;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.body-page {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container-page {
+    width: 80%;
+    margin-top: 2rem;
+    /* background-color: #61876E; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.left-page,
+.right-page {
+    width: 50%;
+    height: 100%;
+    padding: 5rem 0;
+}
+
+#mainpage {
+    width: 100%;
+    height: 100;
+}
+
+#canvasContainer {
+    /* background-image: url('../images/basic_wheel_background.png');
+    background-repeat: no-repeat;
+    background-position: center; */
+    /* width: 400px;
+    height: 400px; */
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#canvas {
+    z-index: 1;
+}
+
+#prizePointer {
+    position: absolute;
+    top: -4vh;
+    z-index: 999;
+}
+
+#firework-bg {
+    display: none;
+}
+
+#btnSpin {
+    background-color: rgb(61 61 61);
+    color: white;
+    border: none;
+    padding: 5px;
+    font-size: 18px;
+    height: 70px;
+    width: 70px;
+    cursor: pointer;
+    border-radius: 50%;
+    border-color: white;
+}
+
+#btnSpin:hover {
+    background-color: rgb(41, 40, 40);
+}
+
+#btnSpin:active {
+    background-color: rgb(41, 40, 40);
+}
+
+.wheelContainer {
+    position: relative;
+}
+
+.runSpin {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 50%;
+    z-index: 4;
+    transform: translateY(-50%);
+}
+
+text {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 11px;
+    pointer-events: none;
+    font-size: 14px;
+}
+
+
+/* Setting part */
+
+.right-page {
+    padding-left: 2rem;
+    padding-right: 2rem;
+}
+
+.setting-page {
+    width: 100%;
+    height: 500px;
+    border-radius: 15px;
+    border: 2px solid black;
+}
+
+.setting-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 2rem;
+}
+
+.setting-header-title {
+    font-family: Roboto, Helvetica Neue, sans-serif;
+}
+
+.setting-button {
+    width: 60%;
+    display: flex;
+    align-items: center;
+    justify-content: right;
+}
+
+.setting-button button {
+    cursor: pointer;
+    background-color: white;
+    border: 1px solid black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.setting-button button:hover {
+    background-color: rgb(206, 195, 195);
+}
+
+.setting-button button:active {
+    background-color: rgb(206, 195, 195);
+}
+
+.btn-import {
+    margin-right: 0.5rem;
+}
+
+.img-list-icon {
+    position: relative;
+    width: 22px;
+    height: 22px;
+}
+
+.img-settings-icon {
+    position: relative;
+    width: 22px;
+    height: 22px;
+}
+
+
+.setting-body {
+    padding: 0 2rem;
+}
+
+.add-new-value-line {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;    
+}
+
+.input-new {
+    padding: 0.5rem;
+    width: 90%;
+    border: 1px solid black;
+}
+
+.input-new-value {
+    width: 100%;
+    font-size: 16px;
+    border: none;
+    background-color: transparent;
+}
+
+.input-new-value:focus{
+    outline: none;
+}
+
+.button-new {
+    width: 10%;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+}
+
+.btn-new {
+    cursor: pointer;
+    background-color: white;
+    border: 1px solid black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+}
+
+.img-plus-icon {
+    position: relative;
+    width: 22px;
+    height: 22px;
+}
+
+.btn-new:hover {
+    background-color: rgb(206, 195, 195);
+}
+
+.btn-new:active {
+    background-color: rgb(206, 195, 195);
+}

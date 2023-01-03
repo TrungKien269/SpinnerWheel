@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wheel</title>
+    <link rel="stylesheet" href="./css/spinner-image.css">
+    <script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="//code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="./js/spinner-image.js"></script>
+</head>
+
+<body>
+    <div id="chart"></div>
+</body>
+
+<script>
+    var data = [
+        { 'fillStyle': '#eae56f', 'text': 'Ronaldo', 'image': '../images/segment1.jpg' },
+        { 'fillStyle': '#89f26e', 'text': 'Messi', 'image': '../images/segment2.jpg' },
+        { 'fillStyle': '#7de6ef', 'text': 'Neymar', 'image': '../images/segment3.jpg' },
+        { 'fillStyle': '#e7706f', 'text': 'Mbappe', 'image': '../images/segment4.jpg' },
+        { 'fillStyle': '#e7706f', 'text': 'Haaland', 'image': '../images/segment5.jpg' },
+        { 'fillStyle': '#e7706f', 'text': 'Benzema', 'image': '../images/segment6.jpg' },
+        { 'fillStyle': '#e7706f', 'text': 'Lewandowsky', 'image': '../images/segment7.jpg' },
+        { 'fillStyle': '#e7706f', 'text': 'Modric', 'image': '../images/segment8.jpg' },
+    ];
+    initiateWheel("chart", data, -60);
+</script>
+
+</html>

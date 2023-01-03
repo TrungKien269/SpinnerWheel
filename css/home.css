@@ -1,0 +1,69 @@
+body {
+    background-color: black;
+}
+
+#mainpage {
+    position: absolute;
+    width: 98vw;
+    height: 98vh;
+    z-index: 10;
+}
+
+.header {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 0;
+}
+
+.header h2 {
+    color: white;
+    font-size: 60px;
+    font-family: HeaderFont;
+}
+
+.flash {
+    -webkit-animation-name: flash;
+    -webkit-animation-duration: 0.5s;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: ease-in-out;
+    -webkit-animation-direction: alternate;
+}
+
+@-webkit-keyframes flash {
+    from {
+        color: white;
+    }
+
+    to {
+        color: rgb(194, 61, 61);
+    }
+
+}
+
+@font-face {
+    font-family: 'HeaderFont';
+    /* src: url('../fonts/festival_3.ttf') format('truetype');  */
+    src: url("../fonts/SaintNicholasPersonalRegular-lgaww.otf") format("opentype");
+}
+
+@font-face {
+    font-family: 'TextFont';
+    /* src: url('../fonts/festival_3.ttf') format('truetype');  */
+    src: url("../fonts/MechanicalExtended-xle0.otf") format("opentype");
+}
+
+.bodypage {
+    width: 100%;
+    padding: 2rem 0;
+}
+
+.link-game {
+    text-decoration: none;
+    font-size: 30px;
+    color: white;
+    font-family: 'TextFont';
+    margin-left: 20%;
+}
+

@@ -91,75 +91,7 @@ function initiateWheel(containerId, data, angleRotation) {
         .text("QUAY")
         .style({ "font-weight": "bold", "font-size": "20px", "fill": "white" });
 
-    d3.select("#spin-button").on('click', () => {
-        container.on("click", null);
-        //all slices have been seen, all done
-        // console.log("OldPick: " + oldpick.length, "Data length: " + data.length);
-        if (oldpick.length == data.length) {
-            console.log("done");
-            container.on("click", null);
-            return;
-        }
-        var ps = 360 / data.length,
-            pieslice = Math.round(1440 / data.length),
-            // rng = Math.floor((Math.random() * 1440) + 360);
-            // rng = Math.floor(((random(1, 4) / 10 + 5) * 1440) + 360);
-            // rng = Math.floor(((Math.random() + 2) * 360) + 360);
-            rng = Math.floor(((Math.random() + 10) * 360) + 360);
-
-        rotation = (Math.round(rng / ps) * ps);
-
-        picked = Math.round(data.length - (rotation % 360) / ps);
-        picked = picked >= data.length ? (picked % data.length) : picked;
-        if (oldpick.indexOf(picked) !== -1) {
-            d3.select(this).call(spin);
-            return;
-        } else {
-            oldpick.push(picked);
-        }
-        rotation += 90 - Math.round(ps / 2);
-
-        // play the audio
-        // var audio = new Audio('audio/spin.mp3');
-        var audio = new Audio('/SpinerWheel/audio/spin.mp3');
-        audio.volume = 0.4;
-        audio.play();
-
-        vis.transition()
-            .duration(3000)
-            // .attrTween("transform", rotTween)
-            .attrTween("transform", () => {
-                return function (t) {
-                    var i = d3.interpolate(oldrotation % 360, rotation);
-                    return "rotate(" + i(t) + ", 0, 0)";
-                };
-            })
-            .each("end", function () {
-                // mute the audio
-                audio.muted = true;
-                // mark segment as seen
-                d3.select(".slice:nth-child(" + (picked + 1) + ") path").attr("fill", "#111");
-                // make image as seen
-                d3.select(".slice:nth-child(" + (picked + 1) + ") image").attr("opacity", "0.3");
-
-                oldrotation = rotation;
-
-                // /* Get the result value from object "data" */
-                // console.log(data[picked])
-                Swal.fire({
-                    title: "<i>Người được chọn</i>",
-                    html: `<div style="display: flex;flex-direction: column;align-items: center;justify-content: center;">
-                        <img src="${data[picked].image}" />
-                        <span>${data[picked].text}</span>
-                    <div/>`,
-                    confirmButtonText: "Đóng",
-                });
-
-                // /* Comment the below line for restrict spin to sngle time */
-                // container.on("click", spin);
-                d3.select("#spin-button").on('click', spin);
-            });
-    });
+    d3.select("#spin-button").on('click', spin);
 
     // Set angle rotation
     vis.attr("transform", `rotate(${angleRotation})`);

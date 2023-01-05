@@ -6,13 +6,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vòng quay may mắn</title>
-    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> -->
+    <link rel="stylesheet" href="./lib/css/semantic.min.css">
     <link rel="stylesheet" href="./css/firework.css">
     <link rel="stylesheet" href="./css/spinner.css">
+    <link rel="stylesheet" href="./css/setting.css">
     <script src="./lib/js/jquery.min.js"></script>
     <script src="./lib/js/sweetalert.js"></script>
     <script src="./lib/js/Winwheel.js"></script>
     <script src="./lib/js/TweenMax.js"></script>
+    <script src="./lib/js/semantic.min.js"></script>
     <script src="./js/spinner.js"></script>
 </head>
 
@@ -78,7 +80,8 @@
                                 <img src="./images/icon-list.png" alt="settings-list-icon" class="img-list-icon">
                             </button>
                             <button class="btn-setting">
-                                <img src="./images/icon-settings.png" alt="wheel-settings-icon" class="img-settings-icon">
+                                <img src="./images/icon-settings.png" alt="wheel-settings-icon"
+                                    class="img-settings-icon">
                             </button>
                         </div>
                     </div>
@@ -98,6 +101,48 @@
             </div>
         </div>
     </div>
+
+    <div class="ui-modal-container">
+        <div class="ui modal ui-modal import-modal">
+            <i class="close icon"></i>
+            <div class="header center-header">
+                Thêm danh sách giá trị
+            </div>
+            <div class="modal-content">
+                <div class="content-title">
+                    <span class="content-title-text">Giá trị được ngăn cách với nhau theo từng dòng</span>
+                </div>
+                <div class="list-value-container">
+                    <div class="list-value-block">
+                        <div placeholder="Thêm giá trị mới tại đây" class="list-value" id="list-value-text" contenteditable="true"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="actions modal-footer">
+                <div class="ui negative button btn-close-modal">Hủy</div>
+                <div class="ui button btn-add-list-value">Thêm</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(() => {
+            $('.ui.modal').modal({
+                closable: false,
+                dimmerSettings: {
+                    closable: false,
+                    useCSS: true
+                }
+            });
+
+            $(".btn-import").click(() => {
+                $('.import-modal').modal('show');
+            });
+            $(".btn-setting").click(() => {
+                $('.setting-modal').modal('show');
+            });
+        });
+    </script>
 
 </body>
 

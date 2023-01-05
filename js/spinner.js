@@ -20,6 +20,7 @@ function initiateWheel(segmentData, duration, spins, fireworkElement, btnWheelEl
             'callbackFinished': () => {
                 // Get the audio with the sound it in, then play.
                 let winsound = document.getElementById('winsound');
+                winsound.volume = 0.4;
                 winsound.play();
 
                 // Call getIndicatedSegment() function to return pointer to the segment pointed to on wheel.
@@ -62,8 +63,7 @@ function initiateWheel(segmentData, duration, spins, fireworkElement, btnWheelEl
 }
 
 function playSound() {
-    var audio = new Audio('audio/tick.mp3');  // Create audio object and load desired file.
-    audio.volume = 0.4;
+    var audio = new Audio('audio/tick.mp3');  // Create audio object and load desired file.    
 
     // Stop and rewind the sound (stops it if already playing).
     audio.pause();

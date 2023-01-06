@@ -7,6 +7,7 @@ i.icon.close:before {
     text-align: center !important;
     font-size: 2.2rem !important;
     border-bottom: none !important;
+    text-transform: uppercase;
 }
 
 .modal-content {
@@ -64,4 +65,17 @@ i.icon.close:before {
     overflow: auto;
     font-weight: 500;
     font-size: 18px;
+}
+
+.setting-row {
+    padding: 0 2rem 1rem 2rem;
+}
+
+.setting-title-text {
+    font-size: 18px;
+}
+
+.slider-text {
+    cursor: pointer;
+    outline:none;
 }

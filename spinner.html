@@ -90,7 +90,7 @@
                     <div class="setting-body">
                         <div class="add-new-value-line">
                             <div class="input-new">
-                                <input type="text" name="input-value" class="input-new-value">
+                                <input type="text" name="input-value" class="input-new-value" id="input-value">
                             </div>
                             <div class="button-new">
                                 <button class="btn-new">
@@ -197,10 +197,27 @@
                 label: '#slider-spin-speed-text'
             });
 
+
             $("button.btn-new").click((e) => {
+                registerNewValue();
+            });
+            $('input#input-value').keypress(function (e) {
+                var key = e.which;
+                if (key == 13)
+                {
+                    registerNewValue();
+                    return false;
+                }
+            });
+
+            function registerNewValue() {
+                var newValue = $("input#input-value").val();
+                if (newValue === "" || newValue.trim() === "") {
+                    return;
+                }
                 var strAppend = `<div class="value-line-row">
                                     <div class="input-current">
-                                        <input type="text" class="input-current-value">
+                                        <input type="text" class="input-current-value" value="${newValue}">
                                     </div>
                                     <div class="status-current">
                                         <button class="btn-hide-value">
@@ -217,7 +234,7 @@
                     $('div.value-line-row').css("width", "98%");
                 }
 
-                $(".btn-remove-value").click((e) => {
+                $("button.btn-remove-value").unbind('click').click((e) => {
                     e.preventDefault();
                     var currentTarget = e.currentTarget;
                     var parentLine = $(currentTarget).closest('div.value-line-row');
@@ -230,20 +247,24 @@
                         }
                     });
                 });
-            });
+                $("button.btn-hide-value").unbind('click').click((e) => {
+                    e.preventDefault();
+                    var currentTarget = e.currentTarget;
+                    var childImg = $(currentTarget).find('img');
+                    var currentStatus = $(childImg).hasClass("hidden");
+                    if (currentStatus) {
+                        $(childImg).removeClass("hidden");
+                    } else {
+                        $(childImg).addClass("hidden");
+                    }
+                });
+            }
 
-            $("button.btn-hide-value").click((e) => {
-                var childImg = $(e.currentTarget).children()[0];
-                var currentStatus = $(childImg).hasClass("hidden");
-                $(childImg).toggleClass("hidden");
-            });
 
-
-
-            $("button.btn-import").click(() => {
+            $("button.btn-import").unbind('click').click(() => {
                 $('.import-modal').modal('show');
             });
-            $("button.btn-setting").click(() => {
+            $("button.btn-setting").unbind('click').click(() => {
                 $('.setting-modal').modal('show');
             });
         });

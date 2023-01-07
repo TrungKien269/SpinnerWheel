@@ -36,6 +36,17 @@ i.icon.close:before {
     color: white !important;
 }
 
+.btn-save-setting {
+    color: #fff !important;
+    background-color: #5cb85c !important;
+    border-color: #4cae4c !important;
+}
+
+.btn-save-setting:hover {
+    color: #fff !important;
+    background-color: #449d44 !important;
+    border-color: #398439 !important;
+}
 
 
 .content-title {
@@ -78,4 +89,14 @@ i.icon.close:before {
 .slider-text {
     cursor: pointer;
     outline:none;
+}
+
+.popup-title {
+    width: 100%;
+}
+
+.title-input:focus { 
+    outline: none !important;
+    border-color: black !important;
+    font-size: 14px;
 }

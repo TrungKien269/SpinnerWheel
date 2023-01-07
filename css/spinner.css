@@ -137,6 +137,9 @@ text {
 
 .setting-header-title {
     font-family: Roboto, Helvetica Neue, sans-serif;
+    line-height: 1;
+    font-size: 20px;
+    font-weight: bold;
 }
 
 .setting-button {

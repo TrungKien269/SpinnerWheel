@@ -98,6 +98,9 @@
                                 </button>
                             </div>
                         </div>
+                        <hr class="break-block">
+                        <div class="list-value-line" id="list-value-line">
+                        </div>
                     </div>
                 </div>
             </div>
@@ -135,7 +138,8 @@
             <div class="modal-content">
                 <div class="setting-row">
                     <div class="setting-title">
-                        <span class="setting-title-text">Thời gian quay: <strong><span class="slider-text" id="slider-spin-time-text"></span></strong> (giây)</span>
+                        <span class="setting-title-text">Thời gian quay: <strong><span class="slider-text"
+                                    id="slider-spin-time-text"></span></strong> (giây)</span>
                     </div>
                     <div class="ui segment">
                         <div class="ui green range" id="slider-spin-time"></div>
@@ -143,7 +147,8 @@
                 </div>
                 <div class="setting-row">
                     <div class="setting-title">
-                        <span class="setting-title-text">Tốc độ quay mức: <strong><span class="slider-text" id="slider-spin-speed-text"></span></strong></span>
+                        <span class="setting-title-text">Tốc độ quay mức: <strong><span class="slider-text"
+                                    id="slider-spin-speed-text"></span></strong></span>
                     </div>
                     <div class="ui segment">
                         <div class="ui orange range" id="slider-spin-speed"></div>
@@ -156,7 +161,7 @@
                     <div class="ui segment">
                         <div class="ui input popup-title">
                             <input type="text" placeholder="Tiêu đề..." id="popup-title-input" class="title-input">
-                          </div>
+                        </div>
                     </div>
                 </div>
 
@@ -192,10 +197,53 @@
                 label: '#slider-spin-speed-text'
             });
 
-            $(".btn-import").click(() => {
+            $("button.btn-new").click((e) => {
+                var strAppend = `<div class="value-line-row">
+                                    <div class="input-current">
+                                        <input type="text" class="input-current-value">
+                                    </div>
+                                    <div class="status-current">
+                                        <button class="btn-hide-value">
+                                            <img src="./images/icons-check.png" alt="check-icon" class="img-hide-icon">
+                                        </button>
+                                        <button class="btn-remove-value">
+                                            <img src="./images/icons-close.png" alt="remove-icon" class="img-remove-icon">
+                                        </button>
+                                    </div>
+                                </div>`;
+                $("div#list-value-line").append(strAppend);
+
+                if ($("div#list-value-line").prop('scrollHeight') > $("#list-value-line").height()) {
+                    $('div.value-line-row').css("width", "98%");
+                }
+
+                $(".btn-remove-value").click((e) => {
+                    e.preventDefault();
+                    var currentTarget = e.currentTarget;
+                    var parentLine = $(currentTarget).closest('div.value-line-row');
+                    var parentBlock = $(currentTarget).closest('div.list-value-line');
+                    $(parentLine).fadeOut(500, () => {
+                        $(parentLine).remove();
+                        if ($(parentBlock).prop('scrollHeight') <= $(parentBlock).height()) {
+                            $(parentBlock).css("width", "100%");
+                            $('div.value-line-row').css("width", "100%");
+                        }
+                    });
+                });
+            });
+
+            $("button.btn-hide-value").click((e) => {
+                var childImg = $(e.currentTarget).children()[0];
+                var currentStatus = $(childImg).hasClass("hidden");
+                $(childImg).toggleClass("hidden");
+            });
+
+
+
+            $("button.btn-import").click(() => {
                 $('.import-modal').modal('show');
             });
-            $(".btn-setting").click(() => {
+            $("button.btn-setting").click(() => {
                 $('.setting-modal').modal('show');
             });
         });

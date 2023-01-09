@@ -16,7 +16,7 @@
     <script src="./lib/js/TweenMax.js"></script>
     <script src="./lib/js/semantic.min.js"></script>
     <script src="./js/slider.js"></script>
-    <script src="./js/spinner.js"></script>
+    <script src="./js/test.js"></script>
 </head>
 
 <body>
@@ -34,8 +34,8 @@
                     </div>
                     <div class="wheelContainer">
                         <div id="canvasContainer">
-                            <canvas id="canvas" width="450" height="450"
-                                data-responsiveScaleHeight="true" data-responsiveScaleWidth="true" style="width: 90%; height: 90%;">
+                            <canvas id="canvas" width="450" height="450" data-responsiveScaleHeight="true"
+                                data-responsiveScaleWidth="true" style="width: 90%; height: 90%;">
                                 Canvas not supported, please user another browser.
                             </canvas>
                             <img id="prizePointer" src="./images/basic_pointer.png" alt="V" />
@@ -48,7 +48,17 @@
                         </div>
 
                         <script>
-                            var segmentData = [null];
+                            var segmentData = [
+                                // { 'fillStyle': '#eae56f', 'text': '1' },
+                                // { 'fillStyle': '#89f26e', 'text': '2' },
+                                // { 'fillStyle': '#7de6ef', 'text': '3' },
+                                // { 'fillStyle': '#e7706f', 'text': '4' },
+                                // { 'fillStyle': '#FF8000', 'text': '5' },
+                                // { 'fillStyle': 'pink', 'text': '6' },
+                                // { 'fillStyle': '#FF0080', 'text': '7' },
+                                // { 'fillStyle': '#c68cff', 'text': '8' }
+                                null
+                            ];
                             var duration = 5;
                             var spins = 8;
                             var theWheel = initiateWheel(segmentData, duration, spins, "firework-bg", "btnSpin");
@@ -205,15 +215,16 @@
 
             function registerNewValue() {
                 var newValue = $("input#input-value").val();
+                var newUUID = generateUUID();
                 if (newValue === "" || newValue.trim() === "") {
                     return;
                 }
                 var strAppend = `<div class="value-line-row">
                                     <div class="input-current">
-                                        <input type="text" class="input-current-value" value="${newValue}">
+                                        <input type="text" class="input-current-value" value="${newValue}" id="input-current-value_${newUUID}">
                                     </div>
                                     <div class="status-current">
-                                        <button class="btn-remove-value">
+                                        <button class="btn-remove-value" id="btn-remove-value_${newUUID}">
                                             <img src="./images/icons-close.png" alt="remove-icon" class="img-remove-icon">
                                         </button>
                                     </div>
@@ -235,6 +246,21 @@
                             $(parentBlock).css("width", "100%");
                             $('div.value-line-row').css("width", "100%");
                         }
+
+                        // Remove the segment on the wheel
+                        var guid = currentTarget.id.replace("btn-remove-value_", "");
+                        var removeSegment = theWheel.segments.find(e => e != null && e.guid == guid);
+                        var indexSegment = theWheel.segments.indexOf(removeSegment);
+                        theWheel.deleteSegment(indexSegment);
+
+                        // Check if remove all item => Update the wheel to default wheel
+                        var currentNewItem = $("div.value-line-row").length;
+                        if (currentNewItem < 1 && theWheel.segments.length == 2) {
+                            theWheel.segments[1].fillStyle = null;
+                            theWheel.segments[1].text = ``;
+                            theWheel.segments[1].guid = null;
+                        }
+                        theWheel.draw();
                     });
                 });
                 $("button.btn-hide-value").unbind('click').click((e) => {
@@ -249,6 +275,7 @@
                     }
                 });
 
+                // Append new value with the new color
                 var listNewColor = listColor.filter(x => !listSetColor.includes(x));
                 var newColor = null;
                 if (listNewColor.length > 0) {
@@ -256,13 +283,14 @@
                     listSetColor.push(newColor);
                     listColor = listColor.filter(e => e !== newColor);
 
-                    console.log(theWheel.segments)
                     if (theWheel.segments.length == 2 && theWheel.segments[1].text == '' && theWheel.segments[1].fillStyle == null) {
-                        let option = { 'fillStyle': `${newColor}`, 'text': `${newValue}` };
-                        theWheel.deleteSegment(0);
-                        theWheel.deleteSegment(2);
+                        theWheel.segments[1].fillStyle = `${newColor}`;
+                        theWheel.segments[1].text = `${newValue}`;
+                        theWheel.segments[1].guid = `${newUUID}`;
                     }
-                    theWheel.addSegment({ 'fillStyle': `${newColor}`, 'text': `${newValue}` });
+                    else {
+                        theWheel.addSegment({ 'fillStyle': `${newColor}`, 'text': `${newValue}`, 'guid': `${newUUID}` });
+                    }
                     theWheel.pins.number = theWheel.segments.length * 2;
                     theWheel.draw();
                 }
@@ -280,6 +308,22 @@
         function resize() {
             // $("#canvas").outerHeight($(window).height() - $("#canvas").offset().top - 
             // Math.abs($("#canvas").outerHeight(true) - $("#canvas").outerHeight()));
+        }
+
+        function generateUUID() { // Public Domain/MIT
+            var d = new Date().getTime();//Timestamp
+            var d2 = ((typeof performance !== 'undefined') && performance.now && (performance.now() * 1000)) || 0;//Time in microseconds since page-load or 0 if unsupported
+            return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+                var r = Math.random() * 16;//random number between 0 and 16
+                if (d > 0) {//Use timestamp until depleted
+                    r = (d + r) % 16 | 0;
+                    d = Math.floor(d / 16);
+                } else {//Use microseconds since page-load if supported
+                    r = (d2 + r) % 16 | 0;
+                    d2 = Math.floor(d2 / 16);
+                }
+                return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+            });
         }
     </script>
 

@@ -370,6 +370,10 @@ body {
     padding: 5rem 0;
 }
 
+.left-page {
+    margin-top: 2rem;
+}
+
 .right-page {
     margin-top: 10rem;
 }

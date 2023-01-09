@@ -263,16 +263,23 @@
                     }
                 });
 
-                // theWheel.addSegment({ 'fillStyle': '#eae56f', 'text': `${newValue}` });
-                // theWheel.draw();
-                // var listNewColor = listColor.filter(x => !listSetColor.includes(x));
-                // var newColor = null;
-                // if (listColor.length > 0) {
-                //     newColor = listNewColor[0];
-                //     console.log(newColor);
-                //     listSetColor.push(newColor);
-                //     listColor = listColor.filter(e => e !== newColor);
-                // }
+                var listNewColor = listColor.filter(x => !listSetColor.includes(x));
+                var newColor = null;
+                if (listNewColor.length > 0) {
+                    newColor = listNewColor[0];
+                    listSetColor.push(newColor);
+                    listColor = listColor.filter(e => e !== newColor);
+
+                    if (theWheel.segments.length == 2 && theWheel.segments[1].text == '' && theWheel.segments[1].fillStyle == null) {
+                        theWheel.segments[1].fillStyle = `${newColor}`;
+                        theWheel.segments[1].text = `${newValue}`;
+                    } 
+                    else {
+                        theWheel.addSegment({ 'fillStyle': `${newColor}`, 'text': `${newValue}` });
+                    }                    
+                    theWheel.pins.number = theWheel.segments.length * 2;
+                    theWheel.draw();
+                }
             }
 
 

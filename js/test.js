@@ -33,16 +33,24 @@ function initiateWheel(segmentData, duration, spins, fireworkElement, btnWheelEl
                 Swal.fire({
                     title: "<i>Phần thưởng</i>",
                     html: winningSegment.text,
-                    confirmButtonText: "Đóng",
-                }).then(() => {
-                    document.getElementById(fireworkElement).style.display = 'none';
-                    let findItem = theWheel.segments.filter(item => item != null && item != undefined
-                        && item.text === winningSegment.text && item.fillStyle === winningSegment.fillStyle)[0];
-                    theWheel.deleteSegment(theWheel.segments.indexOf(findItem));
-                    theWheel.rotationAngle -= spins * 360;
+                    confirmButtonText: "Xóa",
+                    denyButtonText: 'Đóng',
+                    showDenyButton: true,
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Remove segment in the wheel
+                        document.getElementById(fireworkElement).style.display = 'none';
+                        let findItem = theWheel.segments.filter(item => item != null && item != undefined
+                            && item.text === winningSegment.text && item.fillStyle === winningSegment.fillStyle)[0];
+                        theWheel.deleteSegment(theWheel.segments.indexOf(findItem));
+                        theWheel.pins.number = theWheel.segments.length * 2;
+                        theWheel.draw();
 
-                    theWheel.pins.number = theWheel.segments.length * 2;
-                    theWheel.draw();
+                        // Remove new item in setting screen
+                        let itemGuid = findItem.guid;
+                        $(`#btn-remove-value_${itemGuid}`).click();
+                    }
+                    theWheel.rotationAngle -= spins * 360;
                 });
             },
         },

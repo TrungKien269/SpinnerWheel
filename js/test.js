@@ -15,8 +15,8 @@ function initiateWheel(segmentData, duration, spins, fireworkElement, btnWheelEl
             'type': 'spinToStop',  // Type of animation.
             'duration': duration,             // How long the animation is to take in seconds.
             'spins': spins,              // The number of complete 360 degree rotations the wheel is to do.
-            'callbackSound': playSound,    // Specify function to call when sound is to be triggered.
-            'soundTrigger': 'pin',         // Pins trigger the sound for this animation.
+            // 'callbackSound': playSound,    // Specify function to call when sound is to be triggered.
+            // 'soundTrigger': 'pin',         // Pins trigger the sound for this animation.
             'callbackFinished': () => {
                 // Get the audio with the sound it in, then play.
                 let winsound = document.getElementById('winsound');

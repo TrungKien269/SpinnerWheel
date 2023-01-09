@@ -48,7 +48,7 @@ function initiateWheel(segmentData, duration, spins, fireworkElement, btnWheelEl
 
                         // Remove new item in setting screen
                         let itemGuid = findItem.guid;
-                        $(`#btn-remove-value_${itemGuid}`).click();
+                        $(`#value-line-row_${itemGuid}`).remove();
                     }
                     theWheel.rotationAngle -= spins * 360;
                 });

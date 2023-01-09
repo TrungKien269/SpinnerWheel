@@ -219,7 +219,7 @@
                 if (newValue === "" || newValue.trim() === "") {
                     return;
                 }
-                var strAppend = `<div class="value-line-row">
+                var strAppend = `<div class="value-line-row" id="value-line-row_${newUUID}">
                                     <div class="input-current">
                                         <input type="text" class="input-current-value" value="${newValue}" id="input-current-value_${newUUID}">
                                     </div>

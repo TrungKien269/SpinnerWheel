@@ -50,20 +50,20 @@
 
                         <script>
                             var segmentData = [
-                                { 'fillStyle': '#eae56f', 'text': '5.000đ' },
-                                { 'fillStyle': '#89f26e', 'text': '10.000đ' },
-                                { 'fillStyle': '#7de6ef', 'text': '20.000đ' },
-                                { 'fillStyle': '#e7706f', 'text': '50.000đ' },
-                                { 'fillStyle': '#FF8000', 'text': '100.000đ' },
-                                { 'fillStyle': 'pink', 'text': '200.000đ' },
-                                { 'fillStyle': '#FF0080', 'text': '500.000đ' },
-                                { 'fillStyle': '#82fbff', 'text': '100.000đ' },
-                                { 'fillStyle': '#c68cff', 'text': '50.000đ' },
-                                { 'fillStyle': '#6dff6b', 'text': '200.000đ' },
-                                { 'fillStyle': '#ff8945', 'text': '20.000đ' },
-                                { 'fillStyle': '#ff524c', 'text': '100.000đ' },
-                                { 'fillStyle': '#ff4e9e', 'text': '10.000đ' },
-                                { 'fillStyle': '#8228ff', 'text': '20.000đ' },
+                                // { 'fillStyle': '#eae56f', 'text': '5.000đ' },
+                                // { 'fillStyle': '#89f26e', 'text': '10.000đ' },
+                                // { 'fillStyle': '#7de6ef', 'text': '20.000đ' },
+                                // { 'fillStyle': '#e7706f', 'text': '50.000đ' },
+                                // { 'fillStyle': '#FF8000', 'text': '100.000đ' },
+                                // { 'fillStyle': 'pink', 'text': '200.000đ' },
+                                // { 'fillStyle': '#FF0080', 'text': '500.000đ' },
+                                // { 'fillStyle': '#82fbff', 'text': '100.000đ' },
+                                // { 'fillStyle': '#c68cff', 'text': '50.000đ' },
+                                // { 'fillStyle': '#6dff6b', 'text': '200.000đ' },
+                                // { 'fillStyle': '#ff8945', 'text': '20.000đ' },
+                                // { 'fillStyle': '#ff524c', 'text': '100.000đ' },
+                                // { 'fillStyle': '#ff4e9e', 'text': '10.000đ' },
+                                // { 'fillStyle': '#8228ff', 'text': '20.000đ' },
                             ];
                             var duration = 5;
                             var spins = 8;
@@ -175,6 +175,10 @@
 
     <script>
         $(document).ready(() => {
+            var listColor = ["#eae56f", "#89f26e", "#7de6ef", "#e7706f", "#FF8000", "pink", "#82fbff", "#FF0080", 
+                                "#6dff6b", '#ff8945', '#ff524c', '#ff4e9e', '#8228ff'];
+            var listSetColor = [];
+            
             $('.ui.modal').modal({
                 closable: false,
                 dimmerSettings: {
@@ -258,6 +262,17 @@
                         $(childImg).addClass("hidden");
                     }
                 });
+
+                // theWheel.addSegment({ 'fillStyle': '#eae56f', 'text': `${newValue}` });
+                // theWheel.draw();
+                // var listNewColor = listColor.filter(x => !listSetColor.includes(x));
+                // var newColor = null;
+                // if (listColor.length > 0) {
+                //     newColor = listNewColor[0];
+                //     console.log(newColor);
+                //     listSetColor.push(newColor);
+                //     listColor = listColor.filter(e => e !== newColor);
+                // }
             }
 
 

@@ -5,11 +5,283 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Vòng quay may mắn</title>
+    <link rel="stylesheet" href="./lib/css/semantic.min.css">
+    <link rel="stylesheet" href="./css/slider.css">
+    <link rel="stylesheet" href="./css/firework.css">
+    <link rel="stylesheet" href="./css/test.css">
+    <script src="./lib/js/jquery.min.js"></script>
+    <script src="./lib/js/sweetalert.js"></script>
+    <script src="./lib/js/Winwheel.js"></script>
+    <script src="./lib/js/TweenMax.js"></script>
+    <script src="./lib/js/semantic.min.js"></script>
+    <script src="./js/slider.js"></script>
+    <script src="./js/spinner.js"></script>
 </head>
 
 <body>
-    
+    <div class="header">
+        <span class="header-title">Vòng quay may mắn</span>
+    </div>
+
+    <div class="body-page">
+        <div class="container-page ui stackable two column grid">
+            <div class="left-page column">
+                <div id="mainpage">
+                    <div class="pyro" id="firework-bg">
+                        <div class="before"></div>
+                        <div class="after"></div>
+                    </div>
+                    <div class="wheelContainer">
+                        <div id="canvasContainer">
+                            <canvas id="canvas" width="450" height="450"
+                                data-responsiveScaleHeight="true" data-responsiveScaleWidth="true" style="width: 90%; height: 90%;">
+                                Canvas not supported, please user another browser.
+                            </canvas>
+                            <img id="prizePointer" src="./images/basic_pointer.png" alt="V" />
+                            <audio id="winsound">
+                                <source src="./audio/winbeat_v2.mp3" />
+                            </audio>
+                        </div>
+                        <div class="runSpin">
+                            <button id="btnSpin">QUAY</button>
+                        </div>
+
+                        <script>
+                            var segmentData = [null];
+                            var duration = 5;
+                            var spins = 8;
+                            var theWheel = initiateWheel(segmentData, duration, spins, "firework-bg", "btnSpin");
+                        </script>
+                    </div>
+                </div>
+            </div>
+
+            <div class="right-page column">
+                <div class="setting-page">
+                    <div class="setting-header">
+                        <span class="setting-header-title">THIẾT LẬP</span>
+                        <div class="setting-button">
+                            <button class="btn-import">
+                                <img src="./images/icon-list.png" alt="settings-list-icon" class="img-list-icon">
+                            </button>
+                            <button class="btn-setting">
+                                <img src="./images/icon-settings.png" alt="wheel-settings-icon"
+                                    class="img-settings-icon">
+                            </button>
+                        </div>
+                    </div>
+                    <div class="setting-body">
+                        <div class="add-new-value-line">
+                            <div class="input-new">
+                                <input type="text" name="input-value" class="input-new-value" id="input-value">
+                            </div>
+                            <div class="button-new">
+                                <button class="btn-new">
+                                    <img src="./images/icons-plus.png" alt="plus-icon" class="img-plus-icon">
+                                </button>
+                            </div>
+                        </div>
+                        <hr class="break-block">
+                        <div class="list-value-line" id="list-value-line">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="ui-modal-container">
+        <div class="ui modal ui-modal import-modal">
+            <i class="close icon"></i>
+            <div class="header center-header">
+                Thêm danh sách giá trị
+            </div>
+            <div class="modal-content">
+                <div class="content-title">
+                    <span class="content-title-text">Giá trị được ngăn cách với nhau theo từng dòng</span>
+                </div>
+                <div class="list-value-container">
+                    <div class="list-value-block">
+                        <div placeholder="Thêm giá trị mới tại đây" class="list-value" id="list-value-text"
+                            contenteditable="true"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="actions modal-footer">
+                <div class="ui negative button btn-close-modal">Hủy</div>
+                <div class="ui button btn-add-list-value">Thêm</div>
+            </div>
+        </div>
+
+        <div class="ui modal ui-modal setting-modal">
+            <i class="close icon"></i>
+            <div class="header center-header">
+                Thiết lập
+            </div>
+            <div class="modal-content">
+                <div class="setting-row">
+                    <div class="setting-title">
+                        <span class="setting-title-text">Thời gian quay: <strong><span class="slider-text"
+                                    id="slider-spin-time-text"></span></strong> (giây)</span>
+                    </div>
+                    <div class="ui segment">
+                        <div class="ui green range" id="slider-spin-time"></div>
+                    </div>
+                </div>
+                <div class="setting-row">
+                    <div class="setting-title">
+                        <span class="setting-title-text">Tốc độ quay mức: <strong><span class="slider-text"
+                                    id="slider-spin-speed-text"></span></strong></span>
+                    </div>
+                    <div class="ui segment">
+                        <div class="ui orange range" id="slider-spin-speed"></div>
+                    </div>
+                </div>
+                <div class="setting-row">
+                    <div class="setting-title">
+                        <span class="setting-title-text">Tiêu đề thông báo</span>
+                    </div>
+                    <div class="ui segment">
+                        <div class="ui input popup-title">
+                            <input type="text" placeholder="Tiêu đề..." id="popup-title-input" class="title-input">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="actions modal-footer">
+                <div class="ui negative button btn-close-modal">Hủy</div>
+                <div class="ui button btn-save-setting">Lưu</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(() => {
+            var listColor = ["#eae56f", "#89f26e", "#7de6ef", "#e7706f", "#FF8000", "pink", "#FF0080",
+                "#6dff6b", '#ff8945', '#ff524c', '#ff4e9e', '#8228ff'];
+            var listSetColor = [];
+
+            // resize();
+            // $(window).on("resize", function () {
+            //     resize();
+            // });
+            theWheel.draw();
+
+            $('.ui.modal').modal({
+                closable: false,
+                dimmerSettings: {
+                    closable: false,
+                    useCSS: true
+                }
+            });
+
+            // Place value in an input
+            $('#slider-spin-time').range({
+                min: 1,
+                max: 10,
+                start: 5,
+                label: '#slider-spin-time-text'
+            });
+            $('#slider-spin-speed').range({
+                min: 1,
+                max: 10,
+                start: 5,
+                label: '#slider-spin-speed-text'
+            });
+
+
+            $("button.btn-new").click((e) => {
+                registerNewValue();
+            });
+            $('input#input-value').keypress(function (e) {
+                var key = e.which;
+                if (key == 13) {
+                    registerNewValue();
+                    return false;
+                }
+            });
+
+            function registerNewValue() {
+                var newValue = $("input#input-value").val();
+                if (newValue === "" || newValue.trim() === "") {
+                    return;
+                }
+                var strAppend = `<div class="value-line-row">
+                                    <div class="input-current">
+                                        <input type="text" class="input-current-value" value="${newValue}">
+                                    </div>
+                                    <div class="status-current">
+                                        <button class="btn-remove-value">
+                                            <img src="./images/icons-close.png" alt="remove-icon" class="img-remove-icon">
+                                        </button>
+                                    </div>
+                                </div>`;
+                $("div#list-value-line").append(strAppend);
+
+                if ($("div#list-value-line").prop('scrollHeight') > $("#list-value-line").height()) {
+                    $('div.value-line-row').css("width", "98%");
+                }
+
+                $("button.btn-remove-value").unbind('click').click((e) => {
+                    e.preventDefault();
+                    var currentTarget = e.currentTarget;
+                    var parentLine = $(currentTarget).closest('div.value-line-row');
+                    var parentBlock = $(currentTarget).closest('div.list-value-line');
+                    $(parentLine).fadeOut(500, () => {
+                        $(parentLine).remove();
+                        if ($(parentBlock).prop('scrollHeight') <= $(parentBlock).height()) {
+                            $(parentBlock).css("width", "100%");
+                            $('div.value-line-row').css("width", "100%");
+                        }
+                    });
+                });
+                $("button.btn-hide-value").unbind('click').click((e) => {
+                    e.preventDefault();
+                    var currentTarget = e.currentTarget;
+                    var childImg = $(currentTarget).find('img');
+                    var currentStatus = $(childImg).hasClass("hidden");
+                    if (currentStatus) {
+                        $(childImg).removeClass("hidden");
+                    } else {
+                        $(childImg).addClass("hidden");
+                    }
+                });
+
+                var listNewColor = listColor.filter(x => !listSetColor.includes(x));
+                var newColor = null;
+                if (listNewColor.length > 0) {
+                    newColor = listNewColor[0];
+                    listSetColor.push(newColor);
+                    listColor = listColor.filter(e => e !== newColor);
+
+                    console.log(theWheel.segments)
+                    if (theWheel.segments.length == 2 && theWheel.segments[1].text == '' && theWheel.segments[1].fillStyle == null) {
+                        let option = { 'fillStyle': `${newColor}`, 'text': `${newValue}` };
+                        theWheel.deleteSegment(0);
+                        theWheel.deleteSegment(2);
+                    }
+                    theWheel.addSegment({ 'fillStyle': `${newColor}`, 'text': `${newValue}` });
+                    theWheel.pins.number = theWheel.segments.length * 2;
+                    theWheel.draw();
+                }
+            }
+
+
+            $("button.btn-import").unbind('click').click(() => {
+                $('.import-modal').modal('show');
+            });
+            $("button.btn-setting").unbind('click').click(() => {
+                $('.setting-modal').modal('show');
+            });
+        });
+
+        function resize() {
+            // $("#canvas").outerHeight($(window).height() - $("#canvas").offset().top - 
+            // Math.abs($("#canvas").outerHeight(true) - $("#canvas").outerHeight()));
+        }
+    </script>
 
 </body>
 

@@ -251,7 +251,14 @@
                         var guid = currentTarget.id.replace("btn-remove-value_", "");
                         var removeSegment = theWheel.segments.find(e => e != null && e.guid == guid);
                         var indexSegment = theWheel.segments.indexOf(removeSegment);
+                        var removeColor = removeSegment.fillStyle;
                         theWheel.deleteSegment(indexSegment);
+
+                        var indexColor = listSetColor.indexOf(removeColor);    // <-- Not supported in <IE9
+                        if (indexColor !== -1) {
+                            listSetColor.splice(indexColor, 1);
+                            listColor.push(removeColor);
+                        }
 
                         // Check if remove all item => Update the wheel to default wheel
                         var currentNewItem = $("div.value-line-row").length;
@@ -308,6 +315,117 @@
                 }
             }
 
+
+            $(".btn-add-list-value").unbind("click").click((e) => {
+                var currentTarget = e.currentTarget;
+                var newValue = $("div#list-value-text").html();
+                if (newValue == '' || newValue.trim() == '' || newValue.replace("<br>", '') == '' || newValue.replace("</br>", '') == '')
+                    return;
+
+                newValue = newValue.replace("<br>", '').replace("</br>", '');
+                var regex = '</div>';
+                var replaceNewValue = newValue.replaceAll(regex, '')
+                var listNewValue = replaceNewValue.split('<div>').filter((item) => item != '' && item.trim() != '');
+
+                let listNewColor = listColor.filter(x => !listSetColor.includes(x));
+                let newColor = null;
+
+                listNewValue.forEach((item, index) => {
+                    let newUUID = generateUUID();
+                    var strAppend = `<div class="value-line-row" id="value-line-row_${newUUID}">
+                                    <div class="input-current">
+                                        <input type="text" class="input-current-value" value="${item}" id="input-current-value_${newUUID}">
+                                    </div>
+                                    <div class="status-current">
+                                        <button class="btn-remove-value" id="btn-remove-value_${newUUID}">
+                                            <img src="./images/icons-close.png" alt="remove-icon" class="img-remove-icon">
+                                        </button>
+                                    </div>
+                                </div>`;
+                    $("div#list-value-line").append(strAppend);
+
+                    if ($("div#list-value-line").prop('scrollHeight') > $("#list-value-line").height()) {
+                        $('div.value-line-row').css("width", "98%");
+                    }
+
+                    $("button.btn-remove-value").unbind('click').click((e) => {
+                        e.preventDefault();
+                        var currentTarget = e.currentTarget;
+                        var parentLine = $(currentTarget).closest('div.value-line-row');
+                        var parentBlock = $(currentTarget).closest('div.list-value-line');
+                        $(parentLine).fadeOut(500, () => {
+                            $(parentLine).remove();
+                            if ($(parentBlock).prop('scrollHeight') <= $(parentBlock).height()) {
+                                $(parentBlock).css("width", "100%");
+                                $('div.value-line-row').css("width", "100%");
+                            }
+
+                            // Remove the segment on the wheel
+                            var guid = currentTarget.id.replace("btn-remove-value_", "");
+                            var removeSegment = theWheel.segments.find(e => e != null && e.guid == guid);
+                            var indexSegment = theWheel.segments.indexOf(removeSegment);
+                            var removeColor = removeSegment.fillStyle;
+                            theWheel.deleteSegment(indexSegment);
+
+                            var indexColor = listSetColor.indexOf(removeColor);    // <-- Not supported in <IE9
+                            if (indexColor !== -1) {
+                                listSetColor.splice(indexColor, 1);
+                                listColor.push(removeColor);
+                            }
+
+                            // Check if remove all item => Update the wheel to default wheel
+                            var currentNewItem = $("div.value-line-row").length;
+                            if (currentNewItem < 1 && theWheel.segments.length == 2) {
+                                theWheel.segments[1].fillStyle = null;
+                                theWheel.segments[1].text = ``;
+                                theWheel.segments[1].guid = null;
+                            }
+                            theWheel.draw();
+                        });
+                    });
+
+                    $("button.btn-hide-value").unbind('click').click((e) => {
+                        e.preventDefault();
+                        var currentTarget = e.currentTarget;
+                        var childImg = $(currentTarget).find('img');
+                        var currentStatus = $(childImg).hasClass("hidden");
+                        if (currentStatus) {
+                            $(childImg).removeClass("hidden");
+                        } else {
+                            $(childImg).addClass("hidden");
+                        }
+                    });
+
+                    $(".input-current-value").unbind("input").on('input', function (e) {
+                        var currentTarget = e.currentTarget;
+                        var newValue = $(currentTarget).val();
+                        var guid = $(currentTarget).attr("id").replace("input-current-value_", "");
+
+                        var updateSegment = theWheel.segments.find(e => e != null && e.guid == guid);
+                        var indexSegment = theWheel.segments.indexOf(updateSegment);
+                        theWheel.segments[indexSegment].text = `${newValue}`;
+                        theWheel.draw();
+                    });
+
+                    // Append new value with the new color
+                    if (listNewColor.length > 0) {
+                        newColor = listNewColor[0];
+                        listSetColor.push(newColor);
+                        listColor = listColor.filter(e => e !== newColor);
+
+                        if (theWheel.segments.length == 2 && theWheel.segments[1].text == '' && theWheel.segments[1].fillStyle == null) {
+                            theWheel.segments[1].fillStyle = `${newColor}`;
+                            theWheel.segments[1].text = `${item}`;
+                            theWheel.segments[1].guid = `${newUUID}`;
+                        }
+                        else {
+                            theWheel.addSegment({ 'fillStyle': `${newColor}`, 'text': `${item}`, 'guid': `${newUUID}` });
+                        }
+                        theWheel.pins.number = theWheel.segments.length * 2;
+                        theWheel.draw();
+                    }
+                })
+            });
 
             $("button.btn-import").unbind('click').click(() => {
                 $('.import-modal').modal('show');

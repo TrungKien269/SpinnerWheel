@@ -263,6 +263,7 @@
                         theWheel.draw();
                     });
                 });
+
                 $("button.btn-hide-value").unbind('click').click((e) => {
                     e.preventDefault();
                     var currentTarget = e.currentTarget;
@@ -273,6 +274,17 @@
                     } else {
                         $(childImg).addClass("hidden");
                     }
+                });
+                
+                $(".input-current-value").unbind("input").on('input', function (e) {
+                    var currentTarget = e.currentTarget;
+                    var newValue = $(currentTarget).val();
+                    var guid = $(currentTarget).attr("id").replace("input-current-value_", "");
+
+                    var updateSegment = theWheel.segments.find(e => e != null && e.guid == guid);
+                    var indexSegment = theWheel.segments.indexOf(updateSegment);
+                    theWheel.segments[indexSegment].text = `${newValue}`;
+                    theWheel.draw();
                 });
 
                 // Append new value with the new color

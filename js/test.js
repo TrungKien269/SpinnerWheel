@@ -38,8 +38,7 @@ function initiateWheel(segmentData, duration, spins, fireworkElement, btnWheelEl
                     showDenyButton: true,
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        // Remove segment in the wheel
-                        document.getElementById(fireworkElement).style.display = 'none';
+                        // Remove segment in the wheel                        
                         let findItem = theWheel.segments.filter(item => item != null && item != undefined
                             && item.text === winningSegment.text && item.fillStyle === winningSegment.fillStyle)[0];
                         theWheel.deleteSegment(theWheel.segments.indexOf(findItem));
@@ -50,7 +49,12 @@ function initiateWheel(segmentData, duration, spins, fireworkElement, btnWheelEl
                         let itemGuid = findItem.guid;
                         $(`#value-line-row_${itemGuid}`).remove();
                     }
+
+                    // Update new rotation for the wheel
                     theWheel.rotationAngle -= spins * 360;
+
+                    // Remove firework animation
+                    document.getElementById(fireworkElement).style.display = 'none';
                 });
             },
         },

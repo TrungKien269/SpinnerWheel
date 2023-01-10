@@ -158,7 +158,6 @@ i.icon.close:before {
 
 .setting-body {
     padding: 0 2rem;
-    /* overflow-y: auto; */
 }
 
 .add-new-value-line {
@@ -169,7 +168,7 @@ i.icon.close:before {
 }
 
 .input-new {
-    padding: 0.5rem;
+    padding: 0.6rem 0.5rem;
     width: 90%;
     border: 1px solid black;
 }
@@ -331,7 +330,6 @@ i.icon.close:before {
 }
 
 body {
-    /* background-color: #A6BB8D; */
     padding: 0;
     margin: 0;
 }

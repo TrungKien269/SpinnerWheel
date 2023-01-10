@@ -60,7 +60,7 @@
                                 null
                             ];
                             var duration = 5;
-                            var spins = 8;
+                            var spins = 5;
                             var theWheel = initiateWheel(segmentData, duration, spins, "firework-bg", "btnSpin");
                         </script>
                     </div>
@@ -172,6 +172,8 @@
             var listColor = ["#eae56f", "#89f26e", "#7de6ef", "#e7706f", "#FF8000", "pink", "#FF0080",
                 "#6dff6b", '#ff8945', '#ff524c', '#ff4e9e', '#8228ff'];
             var listSetColor = [];
+            var spinTimeValue = 5;
+            var spinSpeedValue = 5;
 
             // resize();
             // $(window).on("resize", function () {
@@ -190,15 +192,17 @@
             // Place value in an input
             $('#slider-spin-time').range({
                 min: 1,
-                max: 10,
+                max: 20,
                 start: 5,
-                label: '#slider-spin-time-text'
+                label: '#slider-spin-time-text',
+                onChange: function(val) { spinTimeValue = val; }
             });
             $('#slider-spin-speed').range({
                 min: 1,
-                max: 10,
+                max: 20,
                 start: 5,
-                label: '#slider-spin-speed-text'
+                label: '#slider-spin-speed-text',
+                onChange: function(val) { spinSpeedValue = val; }
             });
 
 
@@ -426,6 +430,13 @@
                     }
                 })
             });
+
+
+            $(".btn-save-setting").unbind('click').click((e) => {
+                theWheel.animation.duration = spinTimeValue;
+                theWheel.animation.spins = spinSpeedValue;
+                theWheel.draw();
+            })
 
             $("button.btn-import").unbind('click').click(() => {
                 $('.import-modal').modal('show');

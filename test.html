@@ -25,13 +25,13 @@
     </div>
 
     <div class="body-page">
+        <div class="pyro" id="firework-bg">
+            <div class="before"></div>
+            <div class="after"></div>
+        </div>
         <div class="container-page ui stackable two column grid">
             <div class="left-page column">
                 <div id="mainpage">
-                    <div class="pyro" id="firework-bg">
-                        <div class="before"></div>
-                        <div class="after"></div>
-                    </div>
                     <div class="wheelContainer">
                         <div id="canvasContainer">
                             <canvas id="canvas" width="450" height="450" data-responsiveScaleHeight="true"
@@ -275,7 +275,7 @@
                         $(childImg).addClass("hidden");
                     }
                 });
-                
+
                 $(".input-current-value").unbind("input").on('input', function (e) {
                     var currentTarget = e.currentTarget;
                     var newValue = $(currentTarget).val();

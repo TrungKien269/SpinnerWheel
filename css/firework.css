@@ -1,3 +1,10 @@
+.pyro {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    z-index: 10;
+}
+
 .pyro > .before, .pyro > .after {
     position: absolute;
     width: 5px;

@@ -258,7 +258,7 @@
                         var removeColor = removeSegment.fillStyle;
                         theWheel.deleteSegment(indexSegment);
 
-                        var indexColor = listSetColor.indexOf(removeColor);    // <-- Not supported in <IE9
+                        var indexColor = listSetColor.indexOf(removeColor);
                         if (indexColor !== -1) {
                             listSetColor.splice(indexColor, 1);
                             listColor.push(removeColor);
@@ -299,8 +299,8 @@
                 });
 
                 // Append new value with the new color
-                var listNewColor = listColor.filter(x => !listSetColor.includes(x));
-                var newColor = null;
+                let listNewColor = listColor.filter(x => !listSetColor.includes(x));
+                let newColor = null;
                 if (listNewColor.length > 0) {
                     newColor = listNewColor[0];
                     listSetColor.push(newColor);
@@ -329,10 +329,7 @@
                 newValue = newValue.replace("<br>", '').replace("</br>", '');
                 var regex = '</div>';
                 var replaceNewValue = newValue.replaceAll(regex, '')
-                var listNewValue = replaceNewValue.split('<div>').filter((item) => item != '' && item.trim() != '');
-
-                let listNewColor = listColor.filter(x => !listSetColor.includes(x));
-                let newColor = null;
+                var listNewValue = replaceNewValue.split('<div>').filter((item) => item != '' && item.trim() != '');                
 
                 listNewValue.forEach((item, index) => {
                     let newUUID = generateUUID();
@@ -371,7 +368,7 @@
                             var removeColor = removeSegment.fillStyle;
                             theWheel.deleteSegment(indexSegment);
 
-                            var indexColor = listSetColor.indexOf(removeColor);    // <-- Not supported in <IE9
+                            var indexColor = listSetColor.indexOf(removeColor);
                             if (indexColor !== -1) {
                                 listSetColor.splice(indexColor, 1);
                                 listColor.push(removeColor);
@@ -411,6 +408,9 @@
                         theWheel.draw();
                     });
 
+                    let listNewColor = listColor.filter(x => !listSetColor.includes(x));
+                    let newColor = null;
+
                     // Append new value with the new color
                     if (listNewColor.length > 0) {
                         newColor = listNewColor[0];
@@ -429,6 +429,8 @@
                         theWheel.draw();
                     }
                 })
+
+                $('.import-modal').modal('hide');
             });
 
 
@@ -436,10 +438,12 @@
                 theWheel.animation.duration = spinTimeValue;
                 theWheel.animation.spins = spinSpeedValue;
                 theWheel.draw();
+                $('.setting-modal').modal('hide');
             })
 
             $("button.btn-import").unbind('click').click(() => {
                 $('.import-modal').modal('show');
+                $("div#list-value-text").attr("tabindex", -1).focus();
             });
             $("button.btn-setting").unbind('click').click(() => {
                 $('.setting-modal').modal('show');

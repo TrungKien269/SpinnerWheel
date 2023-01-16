@@ -21,7 +21,7 @@ function initiateWheel(segmentData, duration, spins, fireworkElement, btnWheelEl
                 // Get the audio with the sound it in, then play.
                 let winsound = document.getElementById('winsound');
                 winsound.volume = 0.3;
-                winsound.play();
+                // winsound.play();
 
                 // Call getIndicatedSegment() function to return pointer to the segment pointed to on wheel.
                 let winningSegment = theWheel.getIndicatedSegment();
@@ -51,7 +51,22 @@ function initiateWheel(segmentData, duration, spins, fireworkElement, btnWheelEl
                     }
 
                     // Update new rotation for the wheel
-                    theWheel.rotationAngle -= spins * 360;
+                    // theWheel.rotationAngle -= spins * 360;
+                    theWheel.rotationAngle = 0;
+
+                    // Specify the random segment for the wheel to stop at
+                    let segmentTarget = Number.parseInt(random(1, 6));
+                    let segmentLength = Number.parseInt(360 / (theWheel.segments.length - 1));
+                    let limitLowerAngle = 0, limitHigerAngle = 360;
+                    if (segmentTarget == 1) {
+                        limitHigerAngle = 1 * segmentLength;
+                    } else if (segmentTarget == 5) {
+                        limitLowerAngle = 4 * segmentLength;
+                    } else {
+                        limitLowerAngle = (segmentTarget - 1) * segmentLength + 1;
+                        limitHigerAngle = segmentTarget * segmentLength;
+                    }
+                    theWheel.animation.stopAngle = limitLowerAngle + Number.parseInt(random(0, Number.parseInt(360 / (theWheel.segments.length - 1) - 1)));
 
                     // Remove firework animation
                     document.getElementById(fireworkElement).style.display = 'none';

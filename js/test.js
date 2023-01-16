@@ -54,19 +54,7 @@ function initiateWheel(segmentData, duration, spins, fireworkElement, btnWheelEl
                     // theWheel.rotationAngle -= spins * 360;
                     theWheel.rotationAngle = 0;
 
-                    // Specify the random segment for the wheel to stop at
-                    let segmentTarget = Number.parseInt(random(1, 6));
-                    let segmentLength = Number.parseInt(360 / (theWheel.segments.length - 1));
-                    let limitLowerAngle = 0, limitHigerAngle = 360;
-                    if (segmentTarget == 1) {
-                        limitHigerAngle = 1 * segmentLength;
-                    } else if (segmentTarget == 5) {
-                        limitLowerAngle = 4 * segmentLength;
-                    } else {
-                        limitLowerAngle = (segmentTarget - 1) * segmentLength + 1;
-                        limitHigerAngle = segmentTarget * segmentLength;
-                    }
-                    theWheel.animation.stopAngle = limitLowerAngle + Number.parseInt(random(0, Number.parseInt(360 / (theWheel.segments.length - 1) - 1)));
+                    calculateStopPosition(theWheel);
 
                     // Remove firework animation
                     document.getElementById(fireworkElement).style.display = 'none';
@@ -87,6 +75,23 @@ function initiateWheel(segmentData, duration, spins, fireworkElement, btnWheelEl
     document.getElementById(btnWheelElement).setAttribute("onclick", "theWheel.startAnimation();");
 
     return theWheel;
+}
+
+function calculateStopPosition(theWheel) {
+    // Specify the random segment for the wheel to stop at
+    theWheel.rotationAngle = 0;    
+    let segmentTarget = Number.parseInt(random(1, theWheel.segments.length - 1));
+    let segmentLength = Number.parseInt(360 / (theWheel.segments.length - 1));
+    let limitLowerAngle = 0, limitHigerAngle = 360;
+    if (segmentTarget == 1) {
+        limitHigerAngle = 1 * segmentLength;
+    } else if (segmentTarget == 5) {
+        limitLowerAngle = 4 * segmentLength;
+    } else {
+        limitLowerAngle = (segmentTarget - 1) * segmentLength + 1;
+        limitHigerAngle = segmentTarget * segmentLength;
+    }
+    theWheel.animation.stopAngle = limitLowerAngle + Number.parseInt(random(0, Number.parseInt(360 / (theWheel.segments.length - 1) - 1)));
 }
 
 function playSound() {

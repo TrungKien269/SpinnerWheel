@@ -82,11 +82,11 @@
                         </div>
                     </div>
                     <div class="setting-body">
-                        <div class="add-new-value-line">
-                            <div class="input-new">
+                        <div class="add-new-value-line ui two column grid">
+                            <div class="input-new column">
                                 <input type="text" name="input-value" class="input-new-value" id="input-value">
                             </div>
-                            <div class="button-new">
+                            <div class="button-new column">
                                 <button class="btn-new">
                                     <img src="./images/icons-plus.png" alt="plus-icon" class="img-plus-icon">
                                 </button>
@@ -272,6 +272,9 @@
                             theWheel.segments[1].guid = null;
                         }
                         theWheel.draw();
+
+                        // CaLculate new stop position for the wheel
+                        calculateStopPosition(theWheel);
                     });
                 });
 
@@ -316,6 +319,9 @@
                     }
                     theWheel.pins.number = theWheel.segments.length * 2;
                     theWheel.draw();
+
+                    // CaLculate new stop position for the wheel
+                    calculateStopPosition(theWheel);
                 }
             }
 
@@ -382,6 +388,9 @@
                                 theWheel.segments[1].guid = null;
                             }
                             theWheel.draw();
+
+                            // CaLculate new stop position for the wheel
+                            calculateStopPosition(theWheel);
                         });
                     });
 
@@ -427,6 +436,9 @@
                         }
                         theWheel.pins.number = theWheel.segments.length * 2;
                         theWheel.draw();
+
+                        // CaLculate new stop position for the wheel
+                        calculateStopPosition(theWheel);
                     }
                 })
 
